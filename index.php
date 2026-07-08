@@ -1,6 +1,8 @@
+<?php 
+session_start();
+include 'header.php';?>
 <?php
 
-session_start();
 include 'connect.php';
 include 'functions.php';
 
@@ -17,11 +19,12 @@ $Allarticles->execute(); // Let 'excute' empty because I don't want to enter/cha
 // In allArticles, get me all the lines
 $articles = $Allarticles->fetchAll();
 
+// var_dump($_SESSION);
 ?>
 
 <!-- npx @tailwindcss/cli -i src/css/input.css -o src/css/output.css --watch -->
 
-    <?php include 'header.php' ?>
+    
 
     <section>   
         
@@ -54,7 +57,7 @@ $articles = $Allarticles->fetchAll();
 </div>
  <?php endif; ?>
 
-        <?php if(isset($_SESSION["loggedUser"]) && $_SESSION["loggedUser"]["login"] === "admin1") : ?>
+        <?php if(isset($_SESSION["loggedUser"]) && ($_SESSION["loggedUser"]["login"] === "admin1" || $_SESSION["loggedUser"]["login"] === "editeur1")) : ?>
                 <!-- Btn add a new article -->
                  <div class=" m-auto size-fit">
                      <button class="btn btn-success"><a href="add.php">Ajouter un nouvelle article</a></button>
@@ -92,10 +95,18 @@ $articles = $Allarticles->fetchAll();
                         <div>
                             <button class="btn btn-info"><a href="article.php?id=<?php echo strip_tags($article["id"])?>">Lire l'article</a></button>
                         </div>
+
+
+                        <!-- BUTTONS DELETE / MODIFY -->
                         <div>
+                            <?php if(isset($_SESSION["loggedUser"]) && ($_SESSION["loggedUser"]["login"] === "admin1" || $_SESSION["loggedUser"]["login"] === "editeur1")) : ?>
                                 <button class="btn btn-accent"> <a href="update.php?id=<?php echo strip_tags($article["id"])?>">Modifier</a> </button>
+                            
+                                <?php if(isset($_SESSION["loggedUser"]) && $_SESSION["loggedUser"]["login"] === "admin1") : ?>
                                 <button class="btn btn-error"><a href="delete.php?id=<?php echo strip_tags($article["id"])?>">Supprimer</a>
                                 </button>
+                                <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                             </div>
                     </div>

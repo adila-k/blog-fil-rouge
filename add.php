@@ -1,9 +1,12 @@
 <?php 
-session_start();
-include 'header.php' ?>
+include 'header.php';
+session_start(); ?>
 
 
 <section>
+    <?php if(isset($_SESSION["loggedUser"]) && $_SESSION["loggedUser"]["login"] === "admin1") : ?>
+
+
             <h1 class="text-center">Ajouter un article</h1>
      
             <form action="add-post.php" method="POST" enctype="multipart/form-data" class="flex flex-col flex-nowrap gap-4">
@@ -48,7 +51,11 @@ include 'header.php' ?>
                     <button class="btn" type="submit">Envoyer</button>
             </form>
 
-  <button class="btn btn-soft btn-secondary"><a href="/index.php">Retour à la page d'accueil</a></button>
+              <?php endif; ?>
+
+
+
+   <button class="btn btn-soft btn-secondary"><a href="/index.php">Retour à la page d'accueil</a></button>
 
     </section>
 
