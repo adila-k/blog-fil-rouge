@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+session_start();
 include 'connect.php';
 include 'functions.php';
 
@@ -23,21 +25,48 @@ $articles = $Allarticles->fetchAll();
 
     <section>   
         
-        
+    <?php if(isset($_SESSION["loggedUser"])):  ?>
+   
+    <div role="alert" class="alert alert-success size-fit mb-10 m-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Connexion réussie. Bienvenue <?php echo $_SESSION["loggedUser"]["login"]  ?></span>
+        </div>
+    <?php endif; ?>
+
                     <!-- Page title -->
-                <h1 class="text-center  mb-10">Ensemble des articles</h1>
-        
+                     <div class="title-wrapper text-center mb-10">
+                         <h1 class="mb-10">l'histoire d'un blog</h1>
+                         <p>un blog qui raconte des histoires</p>
+                     </div>
+
+                     <?php if(!isset($_SESSION["loggedUser"])):  ?>
+<!-- Card for disconnected/not registered users -->
+ <div class="card bg-slate-50 w-96 border border-slate-500 flex flex-col gap-2 m-auto">
+  <div class="card-body">
+    <h2 class="card-title">l'histoire d'un blog</h2>
+    <p>Vous devez être inscrit pour accéder à l'ensemble des articles. L'inscription est gratuite et prend moins de 5 minutes ! </p>
+    <div class="card-actions justify-center">
+      <button class="btn btn-soft btn-accent"><a href="register.php">S'inscrire</a></button>
+    </div>
+  </div>
+</div>
+ <?php endif; ?>
+
+        <?php if(isset($_SESSION["loggedUser"]) && $_SESSION["loggedUser"]["login"] === "admin1") : ?>
                 <!-- Btn add a new article -->
                  <div class=" m-auto size-fit">
                      <button class="btn btn-success"><a href="add.php">Ajouter un nouvelle article</a></button>
                  </div>
-        
+        <?php endif; ?>
+                <?php if(isset($_SESSION["loggedUser"])) : ?>        
                 <!-- Cards wrapper -->
                 <div class="card-wrapper flex flex-wrap row justify-evenly gap-10 mt-10 md:w-full">
                     <?php foreach ($articles as $article) :?>
         
                         <!-- Card Item -->
-                <div class="card bg-base-100 w-96 shadow-sm">
+                 <div class="card bg-base-100 w-96 shadow-sm">
                     <figure class="h-80">
                         <!-- To display the image -->
                         <?php $imagePath = "assets/img/" . $article["image"];?>
@@ -68,10 +97,11 @@ $articles = $Allarticles->fetchAll();
                                 <button class="btn btn-error"><a href="delete.php?id=<?php echo strip_tags($article["id"])?>">Supprimer</a>
                                 </button>
                             </div>
-          </div>
-        </div>
-         
-                        <?php endforeach; ?>
+                            </div>
+                    </div>
+                    
+                    <?php endforeach; ?>
+                    <?php endif ?>
                 </div>
 
     </section>

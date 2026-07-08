@@ -6,5 +6,12 @@ function truncate (string $text, $length = 150){
         }
         return $text;
         }
-
         // substr(string $string, int $start [, ?int $length] ). Here it's from index 0 to 20
+
+
+
+function redirectUrl(string $url) : void
+        {
+        header("location: {$url}");
+        exit();
+        }

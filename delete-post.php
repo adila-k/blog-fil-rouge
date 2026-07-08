@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'connect.php';
 
 // I declare a variable to use $_GET easily
@@ -28,6 +28,8 @@ $deleteArticle -> execute (
 );
 ?>
     <?php include 'header.php' ?>
+
+    <?php if(isset($_SESSION["loggedUser"]) && $_SESSION["loggedUser"]["login"] === "admin1") : ?>
     <section class="mt-10">
        <!-- Display confirmation -->
         <div class="container m-auto size-fit">
@@ -38,7 +40,7 @@ $deleteArticle -> execute (
           </svg>
           <span>L'article <?php echo $getData["id"] ?> a été supprimé avec succès.</span>
         </div>
-        
+        <?php endif; ?>
         <button class="btn btn-soft btn-secondary"><a href="index.php">Retour à l'accueil</a></button>
 
         </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connect.php';
 
 // I declare a variable to use $_POST easily
@@ -73,6 +74,21 @@ if(
 }
 
 
+// Insert the article is db
+$sqlQueryArticle = 'INSERT INTO articles_presse(titre, contenu, auteur, date_publication, match_id, image) VALUES (:titre, :contenu, :auteur, :date_publication, :match_id, :image)';
+$insertcontent = $myMysqlConnection->prepare($sqlQueryArticle);
+$insertcontent->execute(
+    [
+        'titre' => $titre,
+        'auteur' => $auteur,
+        'contenu' => $contenu,
+        'date_publication' => date('Y-m-d'),
+        'match_id' => $match_id, // will be 0 or id
+        'image' => $imageName
+    ]
+);
+
+
 // I need the article ID to add an image
 $article_id = $myMysqlConnection -> lastInsertId();
 
@@ -124,8 +140,9 @@ if(isset($_FILES["image"]["name"]) && $_FILES["image"]["error"] == 0){
             // And I add the image to articles db
 
             $sqlQueryImage = "
-            INSERT INTO articles_presse(image)
-            VALUES (:image)";
+            UPDATE articles_presse
+            SET image = :image
+            WHERE id = :id";
 
             $updateImage = $myMysqlConnection -> prepare($sqlQueryImage);
             $updateImage -> execute(
@@ -135,21 +152,6 @@ if(isset($_FILES["image"]["name"]) && $_FILES["image"]["error"] == 0){
                 ]
             );
 }
-
-
-// Insert the article is db
-$sqlQueryArticle = 'INSERT INTO articles_presse(titre, contenu, auteur, date_publication, match_id, image) VALUES (:titre, :contenu, :auteur, :date_publication, :match_id, :image)';
-$insertcontent = $myMysqlConnection->prepare($sqlQueryArticle);
-$insertcontent->execute(
-    [
-        'titre' => $titre,
-        'auteur' => $auteur,
-        'contenu' => $contenu,
-        'date_publication' => date('Y-m-d'),
-        'match_id' => $match_id, // will be 0 or id
-        'image' => $imageName
-    ]
-);
 
 
 ?>

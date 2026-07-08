@@ -14,9 +14,16 @@
     <a href="index.php" class="btn btn-ghost text-xl">l'histoire d'un blog</a>
   </div>
   <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
+    <ul class="menu menu-horizontal px-1 flex flex-row gap-2">
       <li><a href="index.php">Accueil</a></li>
-      <button class="btn btn-info ml-2 modal">Me connecter</button>
+
+      <?php if(!isset($_SESSION["loggedUser"])) :  ?>
+      <li><button class="btn btn-secondary"><a href="login.php">Se connecter</a></button></li>
+      <?php endif; ?>
+      <?php if(isset($_SESSION["loggedUser"])) :  ?>
+      <li><button class="btn btn-secondary"><a href="logout.php">Se déconnecter</a></button></li>
+      <?php endif; ?>
+      <li><button class="btn btn-soft btn-accent"><a href="register.php">S'inscrire</a></button></li>
     </ul>
   </div>
   

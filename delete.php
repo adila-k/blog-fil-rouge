@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'connect.php';
 
 // I declare a variable to use $_GET easily

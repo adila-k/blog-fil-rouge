@@ -1,4 +1,7 @@
-<?php include 'header.php' ?>
+<?php 
+session_start();
+include 'header.php' ?>
+
 
 <section>
             <h1 class="text-center">Ajouter un article</h1>
