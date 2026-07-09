@@ -1,5 +1,6 @@
 <?php
 
+
 $articlesLogs = "articles_logs.json";
 
 // * I check if the file exists w/ function file_exists(string $filename): bool
@@ -29,6 +30,21 @@ if($logs === null){
 }
 
 
+// * I need to get new addition, modification, deletion
+// ********************************
+// * Function to register changes *
+// ********************************
+
+function registerLog (string $logs, array $datas){
+    $logs [
+        
+    ]
+}
+
+
+
+
+
 // *****************************
 // * Function to display datas *
 // *****************************
@@ -53,3 +69,8 @@ foreach ($logs as $log) {
 
 
 ?>
+
+<?php  include __DIR__.'/../components/header.php'; ?>
+
+
+<?php  include __DIR__.'/../components/footer.php'; ?>

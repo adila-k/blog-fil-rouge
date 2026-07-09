@@ -47,23 +47,37 @@ $articles = $Allarticles->fetchAll();
                          <p>un blog qui raconte des histoires</p>
                      </div>
 
-                     <?php if(!isset($_SESSION["loggedUser"])):  ?>
-<!-- Card for disconnected/not registered users -->
- <div class="card bg-slate-50 w-96 border border-slate-500 flex flex-col gap-2 m-auto">
-  <div class="card-body">
-    <h2 class="card-title">l'histoire d'un blog</h2>
-    <p>Vous devez être inscrit pour accéder à l'ensemble des articles. L'inscription est gratuite et prend moins de 5 minutes ! </p>
-    <div class="card-actions justify-center">
-      <button class="btn btn-soft btn-accent"><a href="../pages/register.php">S'inscrire</a></button>
-    </div>
-  </div>
-</div>
- <?php endif; ?>
+                    <?php if(!isset($_SESSION["loggedUser"])):  ?>
+        <!-- Card for disconnected/not registered users -->
+        <div class="card bg-slate-50 w-96 border border-slate-500 flex flex-col gap-2 m-auto">
+        <div class="card-body">
+            <h2 class="card-title">l'histoire d'un blog</h2>
+            <p>Vous devez être inscrit pour accéder à l'ensemble des articles. L'inscription est gratuite et prend moins de 5 minutes ! </p>
+            <div class="card-actions justify-center">
+            <button class="btn btn-soft btn-accent"><a href="../pages/register.php">S'inscrire</a></button>
+            </div>
+        </div>
+        </div>
+        <?php endif; ?>
 
+            <!-- 
+            ================
+            BTN ADD ARTICLE                      
+            ================
+            -->
         <?php if(isset($_SESSION["loggedUser"]) && ($_SESSION["loggedUser"]["roles_id"] == "1" || $_SESSION["loggedUser"]["roles_id"] == "2")) : ?>
                 <!-- Btn add a new article -->
                  <div class=" m-auto size-fit">
                      <button class="btn btn-success"><a href="/blog/pages/add.php">Ajouter un nouvelle article</a></button>
+            <!-- 
+            ================
+            BTN ACCESS LOGS                      
+            ================
+            -->
+                    <?php if(isset($_SESSION["loggedUser"]) && $_SESSION["loggedUser"]["roles_id"] == "1") : ?>
+                     <button class="btn btn-success"><a href="/blog/pages/logs.php">Accéder aux logs</a></button>
+                     <?php endif; ?>
+
                  </div>
         <?php endif; ?>
                 <?php if(isset($_SESSION["loggedUser"])) : ?>        
