@@ -68,7 +68,7 @@ $articles = $Allarticles->fetchAll();
         <?php endif; ?>
                 <?php if(isset($_SESSION["loggedUser"])) : ?>        
                 <!-- Cards wrapper -->
-                <div class="card-wrapper grid grid-cols-3 gap-5 mt-10 m-auto">
+                <div class="card-wrapper grid grid-cols-3 gap-auto mt-10 m-auto justify-items-center">
                     <?php foreach ($articles as $article) :?>
         
                         <!-- Card Item -->
